@@ -66,7 +66,7 @@ class EthicalKolamScraper:
 
 if __name__ == "__main__":
     # Set your URL and output directory here
-    url = "https://stock.adobe.com/in/search?k=muggulu"  # <-- Replace with your target URL
+    url = "https://www.ikolam.com/"  # <-- Replace with your target URL
     output_dir = "./images"       # <-- Replace with your desired output directory
     delay = 2                     # You can change the delay if needed
 

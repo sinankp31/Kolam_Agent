@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-
 import json
 
 class DynamicKolamScraper:
@@ -44,16 +43,21 @@ class DynamicKolamScraper:
             return []
 
 
+# ...existing code...
+
 if __name__ == "__main__":
-    # Set your URL here
-    url = "https://stock.adobe.com/in/search?k=muggulu"  # <-- Replace with your target URL
-    headless = True               # Set to False if you want to see the browser
-    max_scrolls = 20             # Maximum number of scrolls to avoid infinite loop
+    url = "https://www.ikolam.com/"  # <-- Replace with your target URL
+    headless = True
+    max_scrolls = 20
 
     scraper = DynamicKolamScraper(headless=headless)
     images = scraper.scrape_gallery(url, max_scrolls=max_scrolls)
     print(f"Collected {len(images)} images.")
-    output_file = "image_link.json"  # You can change the filename as needed
+    output_file = "image_links.txt"  # Changed to .txt
+
+    # Write only the src links, one per line
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(images, f, ensure_ascii=False, indent=2)
-    print(f"Saved image data to {output_file}")
+        for img in images:
+            if img['src']:
+                f.write(img['src'] + "\n")
+    print(f"Saved image links to {output_file}")
