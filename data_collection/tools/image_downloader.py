@@ -8,7 +8,11 @@ import json
 
 def download_kolam_image(url, filename, output_dir):
     try:
-        response = requests.get(url, timeout=30, stream=True)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"
+        }
+        response = requests.get(url, timeout=30, stream=True, headers=headers)
         response.raise_for_status()
         
         # Verify image content

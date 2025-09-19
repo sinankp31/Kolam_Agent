@@ -46,7 +46,7 @@ class DynamicKolamScraper:
 # ...existing code...
 
 if __name__ == "__main__":
-    url = "https://www.ikolam.com/"  # <-- Replace with your target URL
+    url = "https://www.rangoliworld.org/flower-kolam-designs-gallery.html"  # <-- Replace with your target URL
     headless = True
     max_scrolls = 20
 
