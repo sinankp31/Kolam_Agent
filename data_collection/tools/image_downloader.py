@@ -48,25 +48,28 @@ def calculate_image_hash(filepath):
 
 
 if __name__ == "__main__":
-    # Set your JSON file and output directory here
-    json_file = "output.json"  # <-- Replace with your JSON file from dynamic_scrapper.py
-    output_dir = "downloaded_images"  # <-- Replace with your desired output directory
+    links_file = "image_links.txt"
+    output_dir = "images"
 
     os.makedirs(output_dir, exist_ok=True)
 
-    with open(json_file, "r", encoding="utf-8") as f:
-        images = json.load(f)
+    # Read image links from text file
+    with open(links_file, "r", encoding="utf-8") as f:
+        images = [line.strip() for line in f if line.strip()]
 
-    # Try to extract URLs from the JSON structure
-    # If images is a list of dicts with 'src' or 'url' keys, adjust as needed
     results = []
-    for img in images:
-        url = img.get('src') or img.get('url') or img if isinstance(img, str) else None
+    for idx, url in enumerate(images):
         if not url:
+            print(f"Skipping empty URL at line {idx+1}")
             continue
         filename = os.path.basename(url.split('?')[0])
+        if not filename:
+            filename = f"image_{idx}.jpg"
+        filename = f"{idx}_{filename}"
+        print(f"Downloading: {url} -> {filename}")
         result = download_kolam_image(url, filename, output_dir)
         if result:
             results.append(result)
 
     print(f"Downloaded {len(results)} images to {output_dir}.")
+
